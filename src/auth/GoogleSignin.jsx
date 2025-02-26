@@ -1,54 +1,34 @@
 import React, { useEffect } from 'react';
-import { gapi } from 'gapi-script';
+//import { gapi } from 'gapi-script';
+
+ const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID; // Use Vite env format
 
 const GoogleAuth = () => {
-  useEffect(() => {
-    const initClient = () => {
-      gapi.client.init({
-        clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-        scope: 'https://www.googleapis.com/auth/blogger'
-      }).then(() => {
-        console.log('GAPI client initialized');
-      }).catch(error => {
-        console.error('Error initializing GAPI client', error);
-      });
+ /* useEffect(() => {
+    const initializeGapi = async () => {
+      try {
+        gapi.load("client:auth2", () => {
+          gapi.client
+            .init({
+              clientId: clientId,
+              scope: "profile email",
+            })
+            .then(() => {
+              console.log("GAPI client initialized successfully!");
+            })
+            .catch((error) =>
+              console.error("Error initializing GAPI:", error)
+            );
+        });
+      } catch (error) {
+        console.error("GAPI initialization failed:", error);
+      }
     };
 
-    gapi.load('client:auth2', initClient);
-  }, []);
+    initializeGapi();
+  }, []); */
 
-  const handleSignIn = () => {
-    const authInstance = gapi.auth2.getAuthInstance();
-    if (authInstance) {
-      authInstance.signIn().then(() => {
-        console.log('User signed in');
-      }).catch(error => {
-        console.error('Error during sign-in', error);
-      });
-    } else {
-      console.error('GAPI auth instance not initialized');
-    }
-  };
-
-  const handleSignOut = () => {
-    const authInstance = gapi.auth2.getAuthInstance();
-    if (authInstance) {
-      authInstance.signOut().then(() => {
-        console.log('User signed out');
-      }).catch(error => {
-        console.error('Error during sign-out', error);
-      });
-    } else {
-      console.error('GAPI auth instance not initialized');
-    }
-  };
-
-  return (
-    <div>
-      <button onClick={handleSignIn}>Sign in with Google</button>
-      <button onClick={handleSignOut}>Sign out</button>
-    </div>
-  );
+  return <div>Google Sign-In Component</div>;
 };
 
 export default GoogleAuth;
