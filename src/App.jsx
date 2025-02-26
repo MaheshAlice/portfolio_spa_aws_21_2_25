@@ -38,6 +38,7 @@ function App() {
      }];
 
  const router = createBrowserRouter(routes);
+console.log(clientId)
 
   return (
       <>
